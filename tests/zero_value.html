@@ -59,6 +59,20 @@
       });
     </script>
 
+    <div class="layout-slider" style="width: 100%">
+      Slider <span style="display: inline-block; width: 400px; padding: 0 5px;"><input id="Slider3" type="slider" name="price" value="50" /></span>  in string
+    </div>
+    <script type="text/javascript" charset="utf-8">
+      jQuery("#Slider3").slider({
+        from: -50,
+        to: 200,
+        step: 5,
+        dimension: '%',
+        skin: 'plastic',
+        scale: [{label: '-50', position: -50}, {label: '0', position: 0}, {label: '120', position: 120}, {label: '200', position: 200}]
+      });
+    </script>
+
   </div>
 </body>
 </html>

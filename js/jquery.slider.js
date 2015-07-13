@@ -332,11 +332,22 @@
     if( this.settings.scale && this.settings.scale.length > 0 ){
       var str = "";
       var s = this.settings.scale;
-      var prc = Math.round((100/(s.length-1))*10)/10;
-      for( var i=0; i < s.length; i++ ){
-        str += '<span style="left: ' + i*prc + '%">' + ( s[i] != '|' ? '<ins>' + s[i] + '</ins>' : '' ) + '</span>';
-      };
-      return str;
+      if (! (s[0] instanceof Object))
+      {
+        var prc = Math.round((100/(s.length-1))*10)/10;
+        for( var i=0; i < s.length; i++ ){
+          str += '<span style="left: ' + i*prc + '%">' + ( s[i] != '|' ? '<ins>' + s[i] + '</ins>' : '' ) + '</span>';
+        };
+        return str;
+      }
+      else
+      {
+        for( var i=0; i < s.length; i++ ){
+          var prc = Math.round(100 * (((s[i].position - this.settings.from) / this.settings.interval *10) / 10));
+          str += '<span style="left: ' + prc + '%">' + ( s[i].label != '|' ? '<ins>' + s[i].label + '</ins>' : '' ) + '</span>';
+        };
+        return str;
+      }
     } else return "";
 
     return "";
