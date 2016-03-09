@@ -203,7 +203,6 @@
     						
 		this.settings.interval = this.settings.to-this.settings.from;
 		this.settings.value = this.inputNode.attr("value");
-        this.settings.draggable = this.inputNode.attr("draggable");
 		
 		if( this.settings.calculate && $.isFunction( this.settings.calculate ) )
 		  this.nice = this.settings.calculate;
@@ -658,7 +657,7 @@
   };
  
   jSliderPointer.prototype.onmousedown = function(evt){
-      if (this.settings.draggable == "false")
+      if (this.parent.inputNode.attr("disabled"))
         return;
 	  this._parent = {
 	    offset: this.parent.domNode.offset(),
@@ -669,14 +668,14 @@
 	};
  
 	jSliderPointer.prototype.onmousemove = function( evt, x ){
-      if (this.settings.draggable == "false")
+      if (this.parent.inputNode.attr("disabled"))
         return;
 	  var coords = this._getPageCoords( evt );
 	  this._set( this.calc( coords.x ) );
 	};
 	
 	jSliderPointer.prototype.onmouseup = function( evt ){
-      if (this.settings.draggable == "false")
+      if (this.parent.inputNode.attr("disabled"))
         return;
 	  if( this.parent.settings.callback && $.isFunction(this.parent.settings.callback) )
 	    this.parent.settings.callback.call( this.parent, this.parent.getValue() );
