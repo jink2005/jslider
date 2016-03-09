@@ -203,6 +203,7 @@
     						
 		this.settings.interval = this.settings.to-this.settings.from;
 		this.settings.value = this.inputNode.attr("value");
+        this.settings.draggable = this.inputNode.attr("draggable");
 		
 		if( this.settings.calculate && $.isFunction( this.settings.calculate ) )
 		  this.nice = this.settings.calculate;
@@ -646,16 +647,19 @@
   function jSliderPointer(){
   	Draggable.apply( this, arguments );
   }
+ 
   jSliderPointer.prototype = new Draggable();
-  
+ 
   jSliderPointer.prototype.oninit = function( ptr, id, _constructor ){
     this.uid = id;
     this.parent = _constructor;
     this.value = {};
     this.settings = this.parent.settings;
   };
-  
+ 
   jSliderPointer.prototype.onmousedown = function(evt){
+      if (this.settings.draggable == "false")
+        return;
 	  this._parent = {
 	    offset: this.parent.domNode.offset(),
 	    width: this.parent.domNode.width()
@@ -663,13 +667,17 @@
 	  this.ptr.addDependClass("hover");
 	  this.setIndexOver();
 	};
-
+ 
 	jSliderPointer.prototype.onmousemove = function( evt, x ){
+      if (this.settings.draggable == "false")
+        return;
 	  var coords = this._getPageCoords( evt );
 	  this._set( this.calc( coords.x ) );
 	};
 	
 	jSliderPointer.prototype.onmouseup = function( evt ){
+      if (this.settings.draggable == "false")
+        return;
 	  if( this.parent.settings.callback && $.isFunction(this.parent.settings.callback) )
 	    this.parent.settings.callback.call( this.parent, this.parent.getValue() );
 	    
